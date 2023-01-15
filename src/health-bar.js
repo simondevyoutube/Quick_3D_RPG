@@ -1,4 +1,4 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118.1/build/three.module.js';
+import * as THREE from 'three';
 
 import {entity} from './entity.js';
 import {math} from './math.js';
@@ -6,7 +6,7 @@ import {math} from './math.js';
 
 export const health_bar = (() => {
 
-  const _VS = `#version 300 es
+  const _VS = `
 varying vec2 vUV;
 
 void main() {
@@ -16,7 +16,7 @@ void main() {
 }
 `;
 
-  const _PS = `#version 300 es
+  const _PS = `
 uniform vec3 colour;
 uniform float health;
 
@@ -54,6 +54,7 @@ class HealthBar extends entity.Component {
       depthTest: false,
       depthWrite: false,
       side: THREE.DoubleSide,
+      glslVersion: THREE.GLSL3,
     });
 
     this._geometry = new THREE.BufferGeometry();
@@ -75,7 +76,7 @@ class HealthBar extends entity.Component {
 
   _OnHealth(msg) {
     const healthPercent = (msg.health / msg.maxHealth);
-    
+
     this._realHealth = healthPercent;
   }
 

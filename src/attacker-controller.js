@@ -1,4 +1,4 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js';
+import * as THREE from 'three';
 
 import {entity} from './entity.js';
 
@@ -46,7 +46,7 @@ export const attack_controller = (() => {
           if (c.entity == this._parent) {
             return false;
           }
-  
+
           const h = c.entity.GetComponent('HealthComponent');
           if (!h) {
             return false;
@@ -65,7 +65,7 @@ export const attack_controller = (() => {
           const forward = new THREE.Vector3(0, 0, 1);
           forward.applyQuaternion(this._parent._rotation);
           forward.normalize();
-    
+
           let damage = this.GetComponent('HealthComponent')._params.strength;
           if (item) {
             damage *= item.Params.damage;

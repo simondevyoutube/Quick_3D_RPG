@@ -1,10 +1,9 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js';
+import * as THREE from 'three';
 
-import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
-import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+import { GLTFLoader } from 'three/GLTFLoader';
+import { FBXLoader } from 'three/FBXLoader';
 
-import {entity} from './entity.js';
-
+import { entity } from './entity.js';
 
 export const gltf_component = (() => {
 
@@ -13,15 +12,17 @@ export const gltf_component = (() => {
       super();
       this._Init(params);
     }
-  
+
     _Init(params) {
       this._params = params;
-  
+
       this._LoadModels();
     }
-  
+
     InitComponent() {
-      this._RegisterHandler('update.position', (m) => { this._OnPosition(m); });
+      this._RegisterHandler('update.position', (m) => {
+        this._OnPosition(m);
+      });
     }
 
     _OnPosition(m) {
@@ -101,17 +102,18 @@ export const gltf_component = (() => {
 
     Update(timeInSeconds) {
     }
-  };
-
+  }
 
   class AnimatedModelComponent extends entity.Component {
     constructor(params) {
       super();
       this._Init(params);
     }
-  
+
     InitComponent() {
-      this._RegisterHandler('update.position', (m) => { this._OnPosition(m); });
+      this._RegisterHandler('update.position', (m) => {
+        this._OnPosition(m);
+      });
     }
 
     _OnPosition(m) {
@@ -123,10 +125,10 @@ export const gltf_component = (() => {
 
     _Init(params) {
       this._params = params;
-  
+
       this._LoadModels();
     }
-  
+
     _LoadModels() {
       if (this._params.resourceName.endsWith('glb') || this._params.resourceName.endsWith('gltf')) {
         this._LoadGLB();
@@ -184,23 +186,20 @@ export const gltf_component = (() => {
         }
       });
 
-      const _OnLoad = (anim) => {
-        const clip = anim.animations[0];
-        const action = this._mixer.clipAction(clip);
-  
-        action.play();
-      };
+      if (Array.isArray(animations) && animations.length > 0) {
+        setTimeout(() => {
+          this._mixer = new THREE.AnimationMixer(this._target);
+          const clip = animations[0];
+          const action = this._mixer.clipAction(clip);
 
-      const loader = new FBXLoader();
-      loader.setPath(this._params.resourcePath);
-      loader.load(this._params.resourceAnimation, (a) => { _OnLoad(a); });
-
-      this._mixer = new THREE.AnimationMixer(this._target);
+          action.play();
+        });
+      }
 
       this._parent._mesh = this._target;
       this.Broadcast({
-          topic: 'load.character',
-          model: this._target,
+        topic: 'load.character',
+        model: this._target,
       });
     }
 
@@ -216,7 +215,9 @@ export const gltf_component = (() => {
       const loader = new FBXLoader();
       loader.setPath(this._params.resourcePath);
       loader.load(this._params.resourceName, (fbx) => {
-        this._OnLoaded(fbx);
+        loader.load(this._params.resourceAnimation, (a) => {
+          this._OnLoaded(fbx, a.animations);
+        });
       });
     }
 
@@ -225,12 +226,11 @@ export const gltf_component = (() => {
         this._mixer.update(timeInSeconds);
       }
     }
-  };
-
+  }
 
   return {
-      StaticModelComponent: StaticModelComponent,
-      AnimatedModelComponent: AnimatedModelComponent,
+    StaticModelComponent: StaticModelComponent,
+    AnimatedModelComponent: AnimatedModelComponent,
   };
 
 })();

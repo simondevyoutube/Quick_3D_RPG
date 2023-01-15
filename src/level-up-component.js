@@ -1,4 +1,4 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118.1/build/three.module.js';
+import * as THREE from 'three';
 
 import {particle_system} from "./particle-system.js";
 import {entity} from "./entity.js";
@@ -35,11 +35,11 @@ export const level_up_component = (() => {
       this._particles._alphaSpline.AddPoint(0.1, 1.0);
       this._particles._alphaSpline.AddPoint(0.7, 1.0);
       this._particles._alphaSpline.AddPoint(1.0, 0.0);
-      
+
       this._particles._colourSpline.AddPoint(0.0, new THREE.Color(0x00FF00));
       this._particles._colourSpline.AddPoint(0.5, new THREE.Color(0x40C040));
       this._particles._colourSpline.AddPoint(1.0, new THREE.Color(0xFF4040));
-      
+
       this._particles._sizeSpline.AddPoint(0.0, 0.05);
       this._particles._sizeSpline.AddPoint(0.5, 0.25);
       this._particles._sizeSpline.AddPoint(1.0, 0.0);
@@ -48,7 +48,7 @@ export const level_up_component = (() => {
     InitComponent() {
       this._particles.AddParticles(this._parent._position, 300);
     }
-   
+
     Update(timeElapsed) {
       this._particles.Step(timeElapsed);
       if (this._particles._particles.length == 0) {
@@ -56,7 +56,7 @@ export const level_up_component = (() => {
       }
     }
   }
-  
+
   return {
       LevelUpComponent: LevelUpComponent,
       LevelUpComponentSpawner: LevelUpComponentSpawner,
