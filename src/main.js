@@ -142,7 +142,7 @@ class HackNSlashDemo {
 
         this._scene.fog.color.copy(uniforms['bottomColor'].value);
 
-        const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
+        const skyGeo = new THREE.SphereGeometry(1000, 32, 15);
         const skyMat = new THREE.ShaderMaterial({
             uniforms: uniforms,
             vertexShader: _VS,
