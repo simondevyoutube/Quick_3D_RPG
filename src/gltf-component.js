@@ -1,7 +1,7 @@
-import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
+import * as THREE from 'three';
 
-import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/GLTFLoader.js';
-import { FBXLoader } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/FBXLoader.js';
+import { GLTFLoader } from 'three/GLTFLoader';
+import { FBXLoader } from 'three/FBXLoader';
 
 import { entity } from './entity.js';
 

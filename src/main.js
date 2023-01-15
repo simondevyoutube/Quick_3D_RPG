@@ -1,4 +1,4 @@
-import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
+import * as THREE from 'three';
 //import * as THREE from 'https://cdn.jsdelivr.net/npm/three @0.118.1/build/three.module.js';
 
 import { third_person_camera } from './third-person-camera.js';
@@ -249,23 +249,25 @@ class HackNSlashDemo {
         }));
         this._entityManager.Add(sword);
 
-    const girl = new entity.Entity();
-    girl.AddComponent(new gltf_component.AnimatedModelComponent({
-        scene: this._scene,
-        resourcePath: './resources/girl/',
-        resourceName: 'peasant_girl.fbx',
-        resourceAnimation: 'Standing Idle.fbx',
-        scale: 0.035,
-        receiveShadow: true,
-        castShadow: true,
-    }));
-    girl.AddComponent(new spatial_grid_controller.SpatialGridController({
-        grid: this._grid,
-    }));
-    girl.AddComponent(new player_input.PickableComponent());
-    girl.AddComponent(new quest_component.QuestComponent());
-    girl.SetPosition(new THREE.Vector3(30, 0, 0));
-    this._entityManager.Add(girl);
+        const girl = new entity.Entity();
+        girl.AddComponent(new gltf_component.AnimatedModelComponent({
+            scene: this._scene,
+            resourcePath: './resources/girl/',
+            resourceName: 'RobotExpressive.glb',
+//        resourceName: 'peasant_girl.fbx',
+//        resourceAnimation: 'Standing Idle.fbx',
+            scale: 2,
+//        scale: 0.035,
+            receiveShadow: true,
+            castShadow: true,
+        }));
+        girl.AddComponent(new spatial_grid_controller.SpatialGridController({
+            grid: this._grid,
+        }));
+        girl.AddComponent(new player_input.PickableComponent());
+        girl.AddComponent(new quest_component.QuestComponent());
+        girl.SetPosition(new THREE.Vector3(30, 0, 0));
+        this._entityManager.Add(girl);
 
         const player = new entity.Entity();
         player.AddComponent(new player_input.BasicCharacterControllerInput(params));

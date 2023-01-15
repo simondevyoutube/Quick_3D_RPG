@@ -1,4 +1,4 @@
-import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
+import * as THREE from 'three';
 
 import {entity} from './entity.js';
 import {math} from './math.js';

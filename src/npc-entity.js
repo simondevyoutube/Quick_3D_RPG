@@ -1,6 +1,6 @@
-import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
+import * as THREE from 'three';
 
-import {FBXLoader} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/FBXLoader.js';
+import {FBXLoader} from 'three/FBXLoader';
 
 import {finite_state_machine} from './finite-state-machine.js';
 import {entity} from './entity.js';
