@@ -253,11 +253,9 @@ class HackNSlashDemo {
         girl.AddComponent(new gltf_component.AnimatedModelComponent({
             scene: this._scene,
             resourcePath: './resources/girl/',
-            resourceName: 'RobotExpressive.glb',
-//        resourceName: 'peasant_girl.fbx',
-//        resourceAnimation: 'Standing Idle.fbx',
-            scale: 2,
-//        scale: 0.035,
+            resourceName: 'peasant_girl.fbx',
+            resourceAnimation: 'Standing Idle.fbx',
+            scale: 0.035,
             receiveShadow: true,
             castShadow: true,
         }));
