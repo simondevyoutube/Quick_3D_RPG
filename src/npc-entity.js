@@ -1,6 +1,6 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js';
+import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
 
-import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+import {FBXLoader} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/FBXLoader.js';
 
 import {finite_state_machine} from './finite-state-machine.js';
 import {entity} from './entity.js';
@@ -9,10 +9,10 @@ import {player_state} from './player-state.js';
 
 
 export const npc_entity = (() => {
-  
+
   class AIInput {
     constructor() {
-      this._Init();    
+      this._Init();
     }
 
     _Init() {
@@ -224,14 +224,14 @@ export const npc_entity = (() => {
       frameDecceleration.multiplyScalar(timeInSeconds);
       frameDecceleration.z = Math.sign(frameDecceleration.z) * Math.min(
           Math.abs(frameDecceleration.z), Math.abs(velocity.z));
-  
+
       velocity.add(frameDecceleration);
 
       const controlObject = this._target;
       const _Q = new THREE.Quaternion();
       const _A = new THREE.Vector3();
       const _R = controlObject.quaternion.clone();
-  
+
       this._input._keys.forward = false;
 
       const acc = this._acceleration;
@@ -248,23 +248,23 @@ export const npc_entity = (() => {
           dirToPlayer,
           new THREE.Vector3(0, 1, 0));
       _R.setFromRotationMatrix(m);
-  
+
       controlObject.quaternion.copy(_R);
-  
+
       const oldPosition = new THREE.Vector3();
       oldPosition.copy(controlObject.position);
-  
+
       const forward = new THREE.Vector3(0, 0, 1);
       forward.applyQuaternion(controlObject.quaternion);
       forward.normalize();
-  
+
       const sideways = new THREE.Vector3(1, 0, 0);
       sideways.applyQuaternion(controlObject.quaternion);
       sideways.normalize();
-  
+
       sideways.multiplyScalar(velocity.x * timeInSeconds);
       forward.multiplyScalar(velocity.z * timeInSeconds);
-  
+
       const pos = controlObject.position.clone();
       pos.add(forward);
       pos.add(sideways);
@@ -278,7 +278,7 @@ export const npc_entity = (() => {
 
       controlObject.position.copy(pos);
       this._position.copy(pos);
-  
+
       this._parent.SetPosition(this._position);
       this._parent.SetQuaternion(this._target.quaternion);
     }
@@ -303,7 +303,7 @@ export const npc_entity = (() => {
           time: this._stateMachine._currentState._action.time,
         });
       }
-      
+
       if (this._mixer) {
         this._mixer.update(timeInSeconds);
       }

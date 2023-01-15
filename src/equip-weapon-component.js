@@ -1,6 +1,6 @@
 import {entity} from './entity.js';
 
-import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+import {FBXLoader} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/FBXLoader.js';
 
 
 export const equip_weapon_component = (() => {
